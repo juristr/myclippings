@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                 options: {
                     spawn: false,
                 },
-                files: 'test/**/*.js',
+                files: ['*.js', 'test/**/*.js'],
                 tasks: ['default']
             }
         
