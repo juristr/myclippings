@@ -9,31 +9,41 @@ module.exports = function(grunt) {
     grunt.initConfig({
         // Configure a mochaTest task
         mochaTest: {
-          test: {
-            options: {
-              reporter: 'spec'
-            },
-            src: ['test/**/*.js']
-          }
-        },
-
-        // Watches files for changes and runs tasks based on the changed files
-        watch: {
-            js: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-                tasks: ['newer:jshint:all'],
+            test: {
                 options: {
-                    livereload: '<%= connect.options.livereload %>'
-                }
-            },
-            jsTest: {
-                files: ['test/spec/{,*/}*.js'],
-                tasks: ['newer:jshint:test', 'karma']
-            },
-            gruntfile: {
-                files: ['Gruntfile.js']
+                    reporter: 'spec',
+                    clearRequireCache: true
+                },
+                src: ['test/**/*.js']
             }
         },
+        watch: {
+            js: {
+                options: {
+                    spawn: false,
+                },
+                files: 'test/**/*.js',
+                tasks: ['default']
+            }
+        
+        }
+        // Watches files for changes and runs tasks based on the changed files
+        // watch: {
+        //     js: {
+        //         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        //         tasks: ['newer:jshint:all'],
+        //         options: {
+        //             livereload: '<%= connect.options.livereload %>'
+        //         }
+        //     },
+        //     jsTest: {
+        //         files: ['test/spec/{,*/}*.js'],
+        //         tasks: ['newer:jshint:test', 'karma']
+        //     },
+        //     gruntfile: {
+        //         files: ['Gruntfile.js']
+        //     }
+        // },
     });
     // Default task.
     grunt.registerTask('default', ['mochaTest']);
