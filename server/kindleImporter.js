@@ -19,11 +19,11 @@ var extractClippings = function(data) {
 
 
 var kindleImporter = {
+
   parse: function(rawContent) {
     var data = rawContent.split('\n');
 
     var books = extractClippings(data);
-
 
     var result = [];
     // parse single book notes
@@ -34,8 +34,40 @@ var kindleImporter = {
       });
     }
 
-    return result;
+    var createNewBook = function(rawClipping){
+        var currentBook = {
+          title: rawClipping.title,
+          notes: []
+        };
+        currentBook.notes.push({
+          content: rawClipping.content
+        });
+
+        return currentBook;
+    }
+
+    var finalResult = [];
+    var currentBook;
+    for (var i = 0; i < result.length; i++) {
+      if (typeof (currentBook) === 'undefined') {
+        currentBook = createNewBook(result[i]);
+        finalResult.push(currentBook);
+      } else {
+        if (currentBook.title.indexOf(result[i].title) > -1) {
+          currentBook.notes.push({
+            content: result[i].content
+          });
+        } else {
+          // another book starts
+          currentBook = createNewBook(result[i]);
+          finalResult.push(currentBook);
+        }
+      }
+    }
+
+    return finalResult;
   }
+
 };
 
 module.exports = kindleImporter;

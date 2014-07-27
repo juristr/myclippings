@@ -1,10 +1,15 @@
-﻿Clipping Title
+﻿Book1
 - Your Highlight on Location 87-88 | Added on Thursday, December 26, 2013 4:09:46 PM
 
 Content clipping 1
 ==========
-Clipping Title 2
+Book1
 - Your Highlight on Location 87-88 | Added on Thursday, December 26, 2013 4:09:46 PM
 
 Content clipping 2
+==========
+Book2
+- Your Highlight on Location 87-88 | Added on Thursday, December 26, 2013 4:09:46 PM
+
+Content clipping 1
 ==========
