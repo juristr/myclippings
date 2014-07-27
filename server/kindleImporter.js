@@ -1,34 +1,41 @@
 
-var regex =/[^\r\n]+/g;
+var NOTE_SEPARATOR = '==========';
+
+var extractClippings = function(data) {
+  var books = [];
+
+  var clippingSection = [];
+  for (var i = 0; i < data.length; i++) {
+    if (data[i].indexOf(NOTE_SEPARATOR) > -1) {
+      books.push(clippingSection);
+      clippingSection = [];
+    } else {
+      clippingSection.push(data[i]);
+    }
+  }
+
+  return books;
+}
+
 
 var kindleImporter = {
-    parse: function(rawContent){
-        var data = rawContent.split('\n');
+  parse: function(rawContent) {
+    var data = rawContent.split('\n');
 
-        var books = [];
+    var books = extractClippings(data);
 
-        var bookSection = [];
-        for(var i=0; i<data.length; i++){
-            if(data[i] === '=========='){
-                books.push(bookSection);
-                bookSection = [];
-            }else{
-                bookSection.push(data[i]);
-            }
-        }
 
-        var result = [];
-        // parse single book notes
-        for(var i=0; i<books.length; i++){
-            var book = {};
-            book.title = books[i][0];
-            book.content = books[i][3];
-
-            result.push(book);
-        }
-
-        return result;
+    var result = [];
+    // parse single book notes
+    for (var i = 0; i < books.length; i++) {
+      result.push({
+        title: books[i][0],
+        content: books[i][3]
+      });
     }
+
+    return result;
+  }
 };
 
 module.exports = kindleImporter;

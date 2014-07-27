@@ -1,19 +1,35 @@
-var expect = require('chai').expect;
-var kindleImporter = require('../kindleImporter');
+var expect = require('chai').expect,
+  fs = require('fs'),
+  kindleImporter = require('../kindleImporter');
 
 describe('The KindleImporter', function() {
 
-  it('should parse a book', function() {
-    var rawText = 'Instapaper: Friday, Dec. 20 (Instapaper)\n' +
-                '- Your Highlight on Location 87-88 | Added on Thursday, December 26, 2013 4:09:46 PM\n\n' +
-                'Include non-technical people on the development team as analysts and testers.\n' +
-                '==========';
+  it('should parse a book', function(done) {
+    fs.readFile(__dirname + '/singleClipping.txt', 'utf8', function(err, data) {
+      if (err)
+        throw err;
 
-    var resultBooks = kindleImporter.parse(rawText);
+      var resultBooks = kindleImporter.parse(data);
 
-    expect(resultBooks).to.have.length(1);
-    expect(resultBooks[0].title).to.equals('Instapaper: Friday, Dec. 20 (Instapaper)');    
-    expect(resultBooks[0].content).to.equals('Include non-technical people on the development team as analysts and testers.');    
+      expect(resultBooks).to.have.length(1);
+      expect(resultBooks[0].title).to.contain('Clipping Title');
+      expect(resultBooks[0].content).to.contain('Content clipping 1');
+
+      done();
+    });
+  });
+
+  it('should parse multiple books', function(done){
+    fs.readFile(__dirname + '/multipleClippings.txt', 'utf8', function(err, data){
+      if(err)
+        throw err;
+
+      var resultBooks = kindleImporter.parse(data);
+
+      expect(resultBooks).to.have.length(2);
+      expect(resultBooks[1].title).to.contain('Clipping Title 2');
+      done();
+    });
   });
 
 });
