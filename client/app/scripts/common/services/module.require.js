@@ -1,0 +1,4 @@
+define([
+    './lazyDependencyProvider'
+], function(){
+});

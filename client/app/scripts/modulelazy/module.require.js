@@ -1,0 +1,5 @@
+define([
+    './lazyController',
+    './lazyService'
+], function(){
+});
