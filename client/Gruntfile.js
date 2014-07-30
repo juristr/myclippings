@@ -69,6 +69,24 @@ module.exports = function (grunt) {
 
     // The actual grunt server settings
     connect: {
+      server: {
+        options: {
+            port: 9000,
+            hostname: 'localhost'
+        },
+        proxies: [
+            {
+                context: '/api',
+                host: 'localhost',
+                port: 3000,
+                https: false,
+                xforward: false,
+                headers: {
+                    "x-custom-added-header": 'forwarded'
+                }
+            }
+        ]
+      },
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
@@ -78,15 +96,39 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
-              connect.static(appConfig.app)
-            ];
+          middleware: function (connect, options) {
+            if (!Array.isArray(options.base)) {
+              options.base = [options.base];
+            }
+
+            // Setup the proxy
+            var middlewares = [require('grunt-connect-proxy/lib/utils').proxyRequest];
+
+            // Serve static files.
+            options.base.forEach(function(base) {
+                middlewares.push(connect.static(base));
+            });
+
+            // Make directory browse-able.
+            var directory = options.directory || options.base[options.base.length - 1];
+            middlewares.push(connect.directory(directory));
+
+
+            middlewares.push(connect.static('.tmp'));
+            middlewares.push(connect().use('/bower_components', connect.static('./bower_components')));
+            middlewares.push(connect.static(appConfig.app));
+
+            return middlewares;
+
+
+            // return [
+            //   connect.static('.tmp'),
+            //   connect().use(
+            //     '/bower_components',
+            //     connect.static('./bower_components')
+            //   ),
+            //   connect.static(appConfig.app)
+            // ];
           }
         }
       },
