@@ -1,7 +1,11 @@
 {
   "name": "web",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "^1.5.2",
+    "express": "^4.7.2",
+    "method-override": "^2.1.2"
+  },
   "devDependencies": {
     "chai": "^1.9.1",
     "grunt": "~0.4.1",
