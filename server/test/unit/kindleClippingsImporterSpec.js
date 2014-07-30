@@ -1,6 +1,6 @@
 var expect = require('chai').expect,
   fs = require('fs'),
-  kindleImporter = require('../kindleImporter');
+  kindleImporter = require('../../kindleImporter');
 
 describe('The KindleImporter', function() {
 

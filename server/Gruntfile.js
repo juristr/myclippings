@@ -9,12 +9,19 @@ module.exports = function(grunt) {
     grunt.initConfig({
         // Configure a mochaTest task
         mochaTest: {
-            test: {
+            unit: {
                 options: {
                     reporter: 'spec',
                     clearRequireCache: true
                 },
-                src: ['test/**/*.js']
+                src: ['test/unit/**/*.js']
+            },
+            integration: {
+                options: {
+                    reporter: 'spec',
+                    clearRequireCache: true
+                },
+                src: ['test/integration/**/*.js']
             }
         },
         watch: {
