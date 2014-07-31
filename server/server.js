@@ -30,7 +30,7 @@ app.use(function(err, req, res, next){
 });
 
 
-app.get('/ping', function(req, res){
+app.get('/api/ping', function(req, res){
   res.send('pong');
 });
 

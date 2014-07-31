@@ -13,6 +13,11 @@
 // use this if you want to recursively match all subfolders:
 // `test/spec/**/*.js`
 
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+var mountFolder = function (connect, dir) {
+    return connect.static(require('path').resolve(dir));
+};
+
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -69,66 +74,56 @@ module.exports = function (grunt) {
 
     // The actual grunt server settings
     connect: {
-      server: {
-        options: {
-            port: 9000,
-            hostname: 'localhost'
-        },
-        proxies: [
-            {
-                context: '/api',
-                host: 'localhost',
-                port: 3000,
-                https: false,
-                xforward: false,
-                headers: {
-                    "x-custom-added-header": 'forwarded'
-                }
-            }
-        ]
-      },
+      // server: {
+      //   options: {
+      //     hostname: 'localhost',
+      //     port: 8000,
+      //     middleware: function(connect) {
+      //         return [proxySnippet];
+      //     }
+      //   },
+      //   proxies: [
+      //       {
+      //           context: '/api',
+      //           host: 'localhost',
+      //           port: 3000
+      //       }
+      //   ]
+      // },
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
         livereload: 35729
       },
+      proxies: [
+          {
+              context: '/api',
+              host: 'localhost',
+              port: 3000,
+              https: false,
+              changeOrigin: true
+          }
+      ],
       livereload: {
         options: {
           open: true,
+          base: [
+            '.tmp',
+            '<%= yeoman.dist %>'
+          ],
           middleware: function (connect, options) {
-            if (!Array.isArray(options.base)) {
-              options.base = [options.base];
-            }
-
-            // Setup the proxy
-            var middlewares = [require('grunt-connect-proxy/lib/utils').proxyRequest];
-
-            // Serve static files.
-            options.base.forEach(function(base) {
-                middlewares.push(connect.static(base));
-            });
-
-            // Make directory browse-able.
-            var directory = options.directory || options.base[options.base.length - 1];
-            middlewares.push(connect.directory(directory));
-
-
-            middlewares.push(connect.static('.tmp'));
-            middlewares.push(connect().use('/bower_components', connect.static('./bower_components')));
-            middlewares.push(connect.static(appConfig.app));
-
-            return middlewares;
-
-
-            // return [
-            //   connect.static('.tmp'),
-            //   connect().use(
-            //     '/bower_components',
-            //     connect.static('./bower_components')
-            //   ),
-            //   connect.static(appConfig.app)
-            // ];
+            return [
+              proxySnippet,
+              // mountFolder(connect, '.tmp'),
+              // mountFolder(connect, 'app')
+              connect.static('.tmp'),
+              connect().use(
+                '/bower_components',
+                connect.static('./bower_components')
+              ),
+              connect.static(appConfig.app)
+            ];
           }
         }
       },
@@ -520,6 +515,7 @@ module.exports = function (grunt) {
       'clean:server',
       'bower-install',
       'concurrent:server',
+      'configureProxies:server',
       'autoprefixer',
       'connect:livereload',
       'watch'
