@@ -1,15 +1,17 @@
 /*jshint unused: vars */
 require.config({
   paths: {
-    'sass-bootstrap': '../bower_components/sass-bootstrap/dist/js/bootstrap',
-    jquery: '../bower_components/jquery/dist/jquery',
-    'angular-scenario': '../bower_components/angular-scenario/angular-scenario',
-    'angular-sanitize': '../bower_components/angular-sanitize/angular-sanitize',
-    'angular-route': '../bower_components/angular-route/angular-route',
-    'angular-resource': '../bower_components/angular-resource/angular-resource',
-    'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
-    'angular-cookies': '../bower_components/angular-cookies/angular-cookies',
-    angular: '../bower_components/angular/angular'
+    'sass-bootstrap': '../../bower_components/sass-bootstrap/dist/js/bootstrap',
+    jquery: '../../bower_components/jquery/dist/jquery',
+    'angular-scenario': '../../bower_components/angular-scenario/angular-scenario',
+    'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
+    'angular-route': '../../bower_components/angular-route/angular-route',
+    'angular-resource': '../../bower_components/angular-resource/angular-resource',
+    'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
+    'angular-cookies': '../../bower_components/angular-cookies/angular-cookies',
+    angular: '../../bower_components/angular/angular',
+    'ng-flow': '../../bower_components/ng-flow/dist/ng-flow',
+    'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router'
   },
   shim: {
     angular: {
