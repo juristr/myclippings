@@ -6,6 +6,8 @@ define([
   './core/module.require',
   './common/services/namespace',
   './common/services/module.require',
+  './clippingslist/namespace',
+  './clippingslist/module.require',
   './moduleone/module.require',
   './moduleone/namespace',
   './modulelazy/module',
@@ -17,6 +19,8 @@ define([
   coreModuleRequire,
   commonNamespace,
   commonModuleRequire,
+  clippingsListNamespace,
+  clippingsListRequire,
   moduleoneRequire,
   moduleoneNamespace,
   moduleLazy,
@@ -30,6 +34,7 @@ define([
       'ngRoute',
       coreNamespace,
       commonNamespace,
+      clippingsListNamespace,
       moduleoneNamespace,
       moduleLazyNamespace
     ]);
@@ -59,6 +64,10 @@ define([
 
           if(angular.isUndefined(route.controller) === false){
             deps.controller = route.controller;
+          }
+
+          if(angular.isUndefined(route.controllerAs) === false){
+            deps.controllerAs = route.controllerAs;
           }
 
           $routeProvider.when(path, deps);
