@@ -1,5 +1,5 @@
 <div class="row" >
-  <div class="panel panel-default" ng-repeat="book in vm.clippings">
+  <div class="panel panel-default" ng-repeat="book in vm.clippings" ng-click="vm.showDetail(book)">
     <div class="panel-body">
       {{ book.title }}
       <span>{{ book.notes.length }} Notes</span>

@@ -5,13 +5,11 @@ define([
     'use strict';
 
 
-    module.controller('ClippingsListCtrl', ClippingsListCtrl);
+    module.controller('ClippingNotesCtrl', ClippingNotesCtrl);
 
     // @ngInject
-    function ClippingsListCtrl($http, $location){
+    function ClippingNotesCtrl($http, $routeParams){
       var vm = this;
-
-      vm.showDetail = showDetail;
 
       init();
 
@@ -20,14 +18,17 @@ define([
       function init(){
         $http.get('/api/clippings')
           .then(function(response){
-            vm.clippings = response.data;
+
+            for(var i=0; i<response.data.length; i++){
+              if(response.data[i].title === $routeParams.title){
+                vm.notes = response.data[i].notes;
+                break;
+              }
+            }
+
           }, function(error){
             alert('error occured');
           });
-      }
-
-      function showDetail(clipping){
-        $location.path('/clipping/' + clipping.title);
       }
 
       return vm;

@@ -8,6 +8,8 @@ define([
   './common/services/module.require',
   './clippingslist/namespace',
   './clippingslist/module.require',
+  './clippingNotes/namespace',
+  './clippingNotes/module.require',
   './moduleone/module.require',
   './moduleone/namespace',
   './modulelazy/module',
@@ -21,6 +23,8 @@ define([
   commonModuleRequire,
   clippingsListNamespace,
   clippingsListRequire,
+  clippingNotesNamespace,
+  clippingNotesRequire,
   moduleoneRequire,
   moduleoneNamespace,
   moduleLazy,
@@ -35,6 +39,7 @@ define([
       coreNamespace,
       commonNamespace,
       clippingsListNamespace,
+      clippingNotesNamespace,
       moduleoneNamespace,
       moduleLazyNamespace
     ]);

@@ -37,7 +37,7 @@ app.get('/api/ping', function(req, res){
 var fs = require('fs'),
     kindleImporter = require('./kindleImporter');
 
-app.get('/api/data', function(req, res){
+app.get('/api/clippings', function(req, res){
 
   fs.readFile(__dirname + '/myclippings.txt', 'utf8', function(err, data) {
       if (err)

@@ -1,0 +1,4 @@
+define([
+    './clippingNotesController'
+], function(){
+});
