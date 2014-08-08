@@ -34,6 +34,22 @@ app.get('/api/ping', function(req, res){
   res.send('pong');
 });
 
+var fs = require('fs'),
+    kindleImporter = require('./kindleImporter');
+
+app.get('/api/data', function(req, res){
+
+  fs.readFile(__dirname + '/myclippings.txt', 'utf8', function(err, data) {
+      if (err)
+        throw err;
+
+      var resultBooks = kindleImporter.parse(data);
+
+      res.send(resultBooks);
+
+    });
+
+});
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
