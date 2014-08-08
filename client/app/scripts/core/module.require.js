@@ -1,4 +1,5 @@
 define([
-    './module'
+    './module',
+    './dataService'
 ], function(){
 });

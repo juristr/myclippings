@@ -8,7 +8,7 @@ define([
     module.controller('ClippingNotesCtrl', ClippingNotesCtrl);
 
     // @ngInject
-    function ClippingNotesCtrl($http, $routeParams){
+    function ClippingNotesCtrl($routeParams, dataService){
       var vm = this;
 
       init();
@@ -16,18 +16,14 @@ define([
       ////////////
 
       function init(){
-        $http.get('/api/clippings')
-          .then(function(response){
-
-            for(var i=0; i<response.data.length; i++){
-              if(response.data[i].title === $routeParams.title){
-                vm.notes = response.data[i].notes;
+        dataService.getClippings()
+          .then(function(data){
+            for(var i=0; i<data.length; i++){
+              if(data[i].title === $routeParams.title){
+                vm.notes = data[i].notes;
                 break;
               }
             }
-
-          }, function(error){
-            alert('error occured');
           });
       }
 
