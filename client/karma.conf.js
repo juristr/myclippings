@@ -11,12 +11,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      {pattern: 'app/bower_components/angular/angular.js', included: false },
-      {pattern: 'app/bower_components/angular-mocks/angular-mocks.js', included: false },
-      {pattern: 'app/bower_components/angular-resource/angular-resource.js', included: false },
-      {pattern: 'app/bower_components/angular-cookies/angular-cookies.js', included: false },
-      {pattern: 'app/bower_components/angular-sanitize/angular-sanitize.js', included: false },
-      {pattern: 'app/bower_components/angular-route/angular-route.js', included: false },
+      {pattern: 'bower_components/angular/angular.js', included: false },
+      {pattern: 'bower_components/angular-mocks/angular-mocks.js', included: false },
+      {pattern: 'bower_components/angular-resource/angular-resource.js', included: false },
+      {pattern: 'bower_components/angular-cookies/angular-cookies.js', included: false },
+      {pattern: 'bower_components/angular-sanitize/angular-sanitize.js', included: false },
+      {pattern: 'bower_components/angular-route/angular-route.js', included: false },
       {pattern: 'app/scripts/*.js', included: false },
       {pattern: 'app/scripts/**/*.js', included: false },
       {pattern: 'test/spec/**/*.js', included: false },

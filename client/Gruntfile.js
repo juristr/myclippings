@@ -490,13 +490,13 @@ module.exports = function (grunt) {
     karma: {
       unit: {
         configFile: 'karma.conf.js',
-        singleRun: true
-        // autoWatch: true
+        singleRun: false,
+        autoWatch: true
       },
       continuous: {
         configFile: 'karma.conf.js',
         singleRun: true,
-        browsers: ['Firefox', 'IE', 'Chrome'],
+        browsers: ['Firefox', 'Chrome'],
         reporters: ['dots', 'junit'],
         junitReporter: {
           outputFile: 'test-results.xml'
